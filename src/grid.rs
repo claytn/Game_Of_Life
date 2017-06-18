@@ -1,5 +1,5 @@
 /* Grid definition that holds both grids; one used as a buffer while other is updated */
-struct Grid{
+pub struct Grid{
         buffer: u8,
         one: [[bool; 8]; 8],
         two: [[bool; 8]; 8]
