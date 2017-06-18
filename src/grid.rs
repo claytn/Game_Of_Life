@@ -1,11 +1,15 @@
 /* Grid definition that holds both grids; one used as a buffer while other is updated */
 pub struct Grid{
-        pub currentBuffer: u8,
-        pub one: [[bool; 8]; 8],
-        pub two: [[bool; 8]; 8]
+        currentBuffer: u8,
+        one: [[bool; 8]; 8],
+        two: [[bool; 8]; 8]
 }
 
 impl Grid{
+        pub fn new() -> Grid{
+                return Grid{ currentBuffer: 1, one: [[false; 8]; 8], two: [[false; 8]; 8] };
+        }
+
         fn switch_grid(&mut self){
                 self.currentBuffer = if self.currentBuffer == 1{ 2 } else{ 1 };
         }
