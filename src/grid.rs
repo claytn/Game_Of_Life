@@ -1,12 +1,12 @@
 /* Grid definition that holds both grids; one used as a buffer while other is updated */
 pub struct Grid{
-        buffer: u8,
-        one: [[bool; 8]; 8],
-        two: [[bool; 8]; 8]
+        pub currentBuffer: u8,
+        pub one: [[bool; 8]; 8],
+        pub two: [[bool; 8]; 8]
 }
 
 impl Grid{
-        fn switch_grid(&self){
+        fn switch_grid(&mut self){
                 self.currentBuffer = if self.currentBuffer == 1{ 2 } else{ 1 };
         }
 
@@ -17,13 +17,14 @@ impl Grid{
                 return false;
         }
 
-        fn num_neighbors(grid:[[bool;8];8], x:u32, y:u32) -> u32{
+        fn num_neighbors(grid:&[[bool;8];8], x:u32, y:u32) -> u32{
                 let mut count:u8 = 0;
                 /* check each square touching current square */
+                2
         }
 
         fn neighbors(&self, x:u32, y:u32) -> u32{
-                if self.buffer == 1{
+                if self.currentBuffer == 1{
                         return Grid::num_neighbors(&self.one, x, y);
                 }
                 return Grid::num_neighbors(&self.two, x, y);
