@@ -1,17 +1,19 @@
 /* Grid definition that holds both grids; one used as a buffer while other is updated */
 pub struct Grid{
         currentBuffer: u8,
+        display: u8,
         one: [[bool; 8]; 8],
         two: [[bool; 8]; 8]
 }
 
 impl Grid{
         pub fn new() -> Grid{
-                return Grid{ currentBuffer: 1, one: [[false; 8]; 8], two: [[false; 8]; 8] };
+                return Grid{ currentBuffer: 2, display: 1, one: [[false; 8]; 8], two: [[false; 8]; 8] };
         }
 
         fn switch_grid(&mut self){
                 self.currentBuffer = if self.currentBuffer == 1{ 2 } else{ 1 };
+                self.display = if self.display == 1{ 2 } else{ 1 };
         }
 
         fn valid_cell(x:usize, y:usize)->bool{
@@ -39,5 +41,15 @@ impl Grid{
                         return Grid::num_neighbors(&self.one, x, y);
                 }
                 return Grid::num_neighbors(&self.two, x, y);
+        }
+
+        pub fn next(&self){
+            /* apply game of life logic here */
+            switch_grid();
+            for i in 0..8{
+                for j in 0..8{
+                    /* check # of neighbors and update square accordingly */
+                }
+            }
         }
 }
