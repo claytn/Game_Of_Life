@@ -14,20 +14,27 @@ impl Grid{
                 self.currentBuffer = if self.currentBuffer == 1{ 2 } else{ 1 };
         }
 
-        fn valid_cell(x:i32, y:i32)->bool{
+        fn valid_cell(x:usize, y:usize)->bool{
                 if x >= 0 && x < 8 && y < 8 && y >= 0{
                         return true;
                 }
                 return false;
         }
 
-        fn num_neighbors(grid:&[[bool;8];8], x:u32, y:u32) -> u32{
+        fn num_neighbors(grid:&[[bool;8];8], x:usize, y:usize) -> u8{
                 let mut count:u8 = 0;
                 /* check each square touching current square */
-                2
+                for i in (x-1)..(x+1){
+                    for j in (y-1)..(y+1){
+                        if Grid::valid_cell(i, j) && grid[i][j] == true{
+                            count += 1;
+                        }
+                    }
+                }
+                count
         }
 
-        fn neighbors(&self, x:u32, y:u32) -> u32{
+        fn neighbors(&self, x:usize, y:usize) -> u8{
                 if self.currentBuffer == 1{
                         return Grid::num_neighbors(&self.one, x, y);
                 }
