@@ -1,3 +1,4 @@
+#![allow(non_snake_case)]
 mod grid;
 use grid::Grid;
 
