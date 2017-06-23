@@ -16,19 +16,19 @@ impl Grid{
                 self.display = if self.display == 1{ 2 } else{ 1 };
         }
 
-        fn valid_cell(x:usize, y:usize)->bool{
+        fn valid_cell(x:u32, y:u32)->bool{
                 if x >= 0 && x < 8 && y < 8 && y >= 0{
                         return true;
                 }
                 return false;
         }
 
-        fn num_neighbors(grid:&[[bool;8];8], x:usize, y:usize) -> u8{
+        fn num_neighbors(grid:&[[bool;8];8], x:u32, y:u32) -> u8{
                 let mut count:u8 = 0;
                 /* check each square touching current square */
                 for i in (x-1)..(x+1){
                     for j in (y-1)..(y+1){
-                        if Grid::valid_cell(i, j) && grid[i][j] == true{
+                        if Grid::valid_cell(i, j) && grid[i as usize][j as usize] == true{
                             count += 1;
                         }
                     }
@@ -36,18 +36,25 @@ impl Grid{
                 count
         }
 
-        fn neighbors(&self, x:usize, y:usize) -> u8{
+        fn neighbors(&self, x:u32, y:u32) -> u8{
                 if self.currentBuffer == 1{
                         return Grid::num_neighbors(&self.one, x, y);
                 }
                 return Grid::num_neighbors(&self.two, x, y);
         }
 
-        pub fn next(&self){
+        pub fn next(&mut self){
             /* apply game of life logic here */
-            switch_grid();
+            self.switch_grid();
             for i in 0..8{
                 for j in 0..8{
+                    let neighbors = self.neighbors(i,j);
+                    if neighbors >= 4 || neighbors <= 1{
+                        /* kill cell */
+                    }
+                    else if neighbors == 3{
+                        /* revive cell */
+                    }
                     /* check # of neighbors and update square accordingly */
                 }
             }
