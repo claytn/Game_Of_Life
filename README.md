@@ -1,4 +1,4 @@
-# GameOfLife
+# Game_Of_Life
 Rust implementation of John Conway's ["Game of Life"](https://bitstorm.org/gameoflife/)
  
 # Rules
