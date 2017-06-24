@@ -3,13 +3,20 @@
 pub struct Grid{
     currentBuffer: u8,
     display: u8,
-    one: [[bool; 8]; 8],
-    two: [[bool; 8]; 8]
+    pub one: [[bool; 8]; 8],
+    pub two: [[bool; 8]; 8]
 }
 
 impl Grid{
     pub fn new() -> Grid{
-        return Grid{ currentBuffer: 2, display: 1, one: [[false; 8]; 8], two: [[false; 8]; 8] };
+        return Grid{ currentBuffer: 2, display: 1,
+            one: [[false; 8], [false; 8], [false; 8], [false, false, false, true, true, false, false, false],
+                [false, false, false, true, false, false, false, false],
+                [false; 8], [false; 8], [false; 8]],
+            two: [[false; 8], [false; 8], [false; 8], [false, false, false, true, true, false, false, false],
+                [false, false, false, true, false, false, false, false],
+                [false; 8], [false; 8], [false; 8]]
+        };
     }
 
     fn switch_grid(&mut self){
@@ -17,20 +24,21 @@ impl Grid{
         self.display = if self.display == 1{ 2 } else{ 1 };
     }
 
-    fn valid_cell(x:u32, y:u32)->bool{
-        if x < 8 && y < 8{
-            return true;
-        }
-        return false;
+    fn valid_cell(x:i32, y:i32) -> bool{
+     (x < 8 && x >= 0 && y < 8 && y >= 0)
     }
 
     fn num_neighbors(grid:&[[bool;8];8], x:u32, y:u32) -> u8{
         let mut count:u8 = 0;
+        let indexX:i32 = x as i32;
+        let indexY:i32 = y as i32;
         /* check each square touching current square */
-        for i in (x-1)..(x+1){
-            for j in (y-1)..(y+1){
-                if Grid::valid_cell(i, j) && grid[i as usize][j as usize] == true{
-                    count += 1;
+        for i in (indexX-1)..(indexX+2){
+            for j in (indexY-1)..(indexY+2){
+                if i != indexX || j != indexY{
+                    if Grid::valid_cell(i, j) && grid[i as usize][j as usize] == true{
+                        count += 1;
+                    }
                 }
             }
         }
