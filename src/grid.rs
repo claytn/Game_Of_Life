@@ -3,8 +3,8 @@
 pub struct Grid{
     currentBuffer: u8,
     display: u8,
-    pub one: [[bool; 8]; 8],
-    pub two: [[bool; 8]; 8]
+    one: [[bool; 8]; 8],
+    two: [[bool; 8]; 8]
 }
 
 impl Grid{
@@ -17,6 +17,14 @@ impl Grid{
                 [false, false, false, true, false, false, false, false],
                 [false; 8], [false; 8], [false; 8]]
         };
+    }
+
+    pub fn display(&self) -> &[[bool; 8]; 8]{
+        /* should I return a reference to the display grid or the grid itself? */
+        if self.display == 1{
+            return &self.one;
+        }
+        return &self.two;
     }
 
     fn switch_grid(&mut self){
@@ -77,6 +85,7 @@ impl Grid{
                 }
             }
         }
+        /* update the buffere grid as the display grid */
         self.switch_grid();
     }
 }

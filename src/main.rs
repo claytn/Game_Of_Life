@@ -5,10 +5,8 @@ use grid::Grid;
 fn main() {
 	/* Game of life with a buffered grid approach */
 	let mut game_board:Grid = Grid::new();
+	println!("{:?}", game_board.display());
 	game_board.next();
-
-	println!("{:?}", game_board.one);
 	println!("-------------------------------------");
-	println!("{:?}", game_board.two);
-
+	println!("{:?}", game_board.display());
 }
