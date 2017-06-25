@@ -1,4 +1,6 @@
 #![allow(non_snake_case)]
+#![feature(inclusive_range_syntax)]
+
 mod grid;
 use grid::Grid;
 

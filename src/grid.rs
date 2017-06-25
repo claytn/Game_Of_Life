@@ -41,8 +41,8 @@ impl Grid{
         let indexX:i32 = x as i32;
         let indexY:i32 = y as i32;
         /* check each square touching current square */
-        for i in (indexX-1)..(indexX+2){
-            for j in (indexY-1)..(indexY+2){
+        for i in (indexX-1)...(indexX+1){
+            for j in (indexY-1)...(indexY+1){
                 if i != indexX || j != indexY{
                     if Grid::valid_cell(i, j) && grid[i as usize][j as usize] == true{
                         count += 1;
