@@ -7,22 +7,22 @@ use std::io::prelude::*;
 use std::env;
 use std::process;
 
-fn fileAsGrid(fileContents:String) -> Result<[[bool;8]; 8], String>{
+fn fileAsGrid(fileContents:String, myGrid:&mut [[bool; 8]; 8]) -> Result<(), String>{
 	/* transform file contents into an 8x8 bool array */
-	let rows = fileContents.lines();
-	if rows.len() != 8{ return Err("Grid in file must be 8x8"); }
-	for line in fileContents.lines(){
-		if line.trim().len() != 8{ return Err("Grid in file must be 8x8"); }
-		for c in fileContents.chars(){
+	for (i, line) in fileContents.lines().enumerate(){
+		for (j, c) in line.chars().enumerate(){
+			println!("j is {}, c is {}", j, c);
 			if c != '\n'{
-				if c == '*'{
-
+				if c == '*' {
+					myGrid[i][j] = true;
+				}
+				else if c != '-'{
+					return Err(String::from("Invalid characters in file."));
 				}
 			}
 		}
 	}
-
-	Ok([[false;8];8])
+	Ok(())
 }
 
 fn grabFileContents(args:&Vec<String>) -> Result<String, String>{
@@ -41,12 +41,13 @@ fn main() {
 			println!("Problem with getting file contents: {}", err);
 			process::exit(1);
 	});
-	let mut requestedGrid = fileAsGrid(fileContents).unwrap_or_else(|err|{
+	let mut readGrid = [[false; 8]; 8];
+	let mut requestedGrid = fileAsGrid(fileContents, &mut readGrid).unwrap_or_else(|err|{
 			println!("Error parsing file into grid: {}", err);
 			process::exit(1);
 	});
 
-	let mut game_board:Grid = Grid::new();
+	let mut game_board:Grid = Grid::new(readGrid.clone());
 	println!("{:?}", game_board.display());
 	game_board.next();
 	println!("-------------------------------------");

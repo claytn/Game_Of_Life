@@ -8,14 +8,10 @@ pub struct Grid{
 }
 
 impl Grid{
-    pub fn new() -> Grid{
+    pub fn new(arr:[[bool; 8]; 8]) -> Grid{
         return Grid{ currentBuffer: 2, display: 1,
-            one: [[false; 8], [false; 8], [false; 8], [false, false, false, true, true, false, false, false],
-                [false, false, false, true, false, false, false, false],
-                [false; 8], [false; 8], [false; 8]],
-            two: [[false; 8], [false; 8], [false; 8], [false, false, false, true, true, false, false, false],
-                [false, false, false, true, false, false, false, false],
-                [false; 8], [false; 8], [false; 8]]
+            one: arr.clone(),
+            two: arr.clone()
         };
     }
 
