@@ -50,7 +50,7 @@ impl Grid{
     }
 
     fn neighbors(&self, x:u32, y:u32) -> u8{
-        if self.currentBuffer == 1{
+        if self.display == 1{
             return Grid::num_neighbors(&self.one, x, y);
         }
         return Grid::num_neighbors(&self.two, x, y);
