@@ -10,3 +10,21 @@ Rust implementation of John Conway's ["Game of Life"](https://bitstorm.org/gameo
   ### For a space that is 'unpopulated':
   1. Each cell with three neighbors becomes populated.
 
+
+# Usage
+ * A GUI version should be released soon, but until then we shall use files!
+  ### Step 1: Install cargo and the nightly rust compiler
+  ### Step 2: Make a file (inside project root) that contains an 8x8 grid using the characters '-' and '*'
+   #### '*' represens a populated cell and '-' is an unpopulated cell.
+   Example:
+   ```
+   --------
+   --------
+   ---**---
+   ---*----
+   --------
+   ---***--
+   --------
+   --------
+   ```
+  ### Step 3: Inside the project directory run `cargo run <file name>` 
