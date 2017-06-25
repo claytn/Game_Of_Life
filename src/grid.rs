@@ -1,5 +1,4 @@
 /* Grid definition that holds both grids; one used as a buffer while other is updated */
-
 pub struct Grid{
     currentBuffer: u8,
     display: u8,
@@ -16,7 +15,6 @@ impl Grid{
     }
 
     pub fn display(&self) -> &[[bool; 8]; 8]{
-        /* should I return a reference to the display grid or the grid itself? */
         if self.display == 1{
             return &self.one;
         }

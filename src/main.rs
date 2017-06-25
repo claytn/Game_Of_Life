@@ -11,7 +11,6 @@ fn fileAsGrid(fileContents:String, myGrid:&mut [[bool; 8]; 8]) -> Result<(), Str
 	/* transform file contents into an 8x8 bool array */
 	for (i, line) in fileContents.lines().enumerate(){
 		for (j, c) in line.chars().enumerate(){
-			println!("j is {}, c is {}", j, c);
 			if c != '\n'{
 				if c == '*' {
 					myGrid[i][j] = true;
@@ -35,6 +34,22 @@ fn grabFileContents(args:&Vec<String>) -> Result<String, String>{
 	Ok(fileContents)
 }
 
+fn gridToString(grid:&[[bool; 8]; 8]) -> String{
+	let mut data = String::new();
+	for i in 0..8{
+		for j in 0..8{
+			if grid[i][j] == true{
+				data.push('*');
+			}
+			else{
+				data.push('-');
+			}
+		}
+		data.push('\n');
+	}
+	data
+}
+
 fn main() {
 	let args:Vec<String> = env::args().collect();
 	let fileContents = grabFileContents(&args).unwrap_or_else(|err|{
@@ -48,8 +63,10 @@ fn main() {
 	});
 
 	let mut game_board:Grid = Grid::new(readGrid.clone());
-	println!("{:?}", game_board.display());
 	game_board.next();
-	println!("-------------------------------------");
-	println!("{:?}", game_board.display());
+	println!("{}", gridToString(&game_board.display()));
+	/*
+	let mut output = File::create("results.txt").expect("Failed to create output file");
+	output.write_all(gridToString(&game_board.display()).as_bytes()).expect("Failed to write to output file.");
+	*/
 }
