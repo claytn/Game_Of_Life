@@ -63,10 +63,17 @@ fn main() {
 	});
 
 	let mut game_board:Grid = Grid::new(readGrid.clone());
-	game_board.next();
-	println!("{}", gridToString(&game_board.display()));
-	/*
+	if args.len() < 2{
+		println!("Usage: cargo run <file> <# of iterations>");
+		process::exit(1);
+	}
+
+	let iterations = args[2].parse().unwrap();
+	for i in 0..iterations{
+		game_board.next();
+	}
+
 	let mut output = File::create("results.txt").expect("Failed to create output file");
 	output.write_all(gridToString(&game_board.display()).as_bytes()).expect("Failed to write to output file.");
-	*/
+
 }
