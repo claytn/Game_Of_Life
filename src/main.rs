@@ -77,9 +77,4 @@ fn main() {
 		game_board.next();
 	}
 	println!("{}", gridToString(&game_board.display()));
-	
-	/*
-	let mut output = File::create("results.txt").expect("Failed to create output file");
-	output.write_all(gridToString(&game_board.display()).as_bytes()).expect("Failed to write to output file.");
-	*/
 }
