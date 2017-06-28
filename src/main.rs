@@ -68,7 +68,11 @@ fn main() {
 		process::exit(1);
 	}
 
-	let iterations = args[2].parse().unwrap();
+	let iterations = args[2].parse().unwrap_or_else(|err|{
+		println!("Error parsing # of iterations: {}", err);
+		process::exit(1);
+	});
+
 	for i in 0..iterations{
 		game_board.next();
 	}
