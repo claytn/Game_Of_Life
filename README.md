@@ -16,16 +16,31 @@ Rust implementation of John Conway's ["Game of Life"](https://bitstorm.org/gameo
   ### Step 1: Install cargo and the nightly rust compiler
   ### Step 2: Make a file (inside project root) that contains an 8x8 grid using the characters '-' and '*'
    #### '*' represents a populated cell and '-' is an unpopulated cell.
-   Example:
-   ```
-   --------
-   --------
-   ---**---
-   ---*----
-   --------
-   ---***--
-   --------
-   --------
-   ```
   ### Step 3: Inside the project directory run `cargo run <file name> <# of iterations>`
-  #### Example: `cargo run example_grid.txt 4`
+  
+  ### Example: 
+  Inside of example_grid.txt
+  ```
+  --------
+  --------
+  ---*----
+  --***---
+  --*-*---
+  ---*----
+  --------
+  --------
+  ```
+  
+  `cargo run example_grid.txt 4`
+  
+  Output:
+  ```
+  --------
+  --***---
+  -*---*--
+  *-----*-
+  -*---*--
+  --***---
+  --------
+  --------
+  ```
