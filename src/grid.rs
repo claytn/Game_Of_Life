@@ -1,9 +1,9 @@
 /* Grid definition that holds both grids; one used as a buffer while other is updated */
 pub struct Grid{
-    pub currentBuffer: u8,
-    pub display: u8,
-    pub one: [[bool; 8]; 8],
-    pub two: [[bool; 8]; 8]
+    currentBuffer: u8,
+    display: u8,
+    one: [[bool; 8]; 8],
+    two: [[bool; 8]; 8]
 }
 
 impl Grid{
@@ -31,7 +31,7 @@ impl Grid{
             self.currentBuffer = 1;
             self.display = 2;
             self.one = self.two.clone();
-        }    
+        }
     }
 
     fn valid_cell(x:i32, y:i32) -> bool{

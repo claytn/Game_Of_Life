@@ -1,3 +1,6 @@
+#![cfg_attr(feature="clippy", feature(plugin))]
+#![cfg_attr(feature="clippy", plugin(clippy))]
+
 #![allow(non_snake_case)]
 #![feature(inclusive_range_syntax)]
 mod grid;
@@ -76,5 +79,6 @@ fn main() {
 	for i in 0..iterations{
 		game_board.next();
 	}
+
 	println!("{}", gridToString(&game_board.display()));
 }
