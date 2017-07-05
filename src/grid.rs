@@ -6,8 +6,6 @@ pub struct Grid{
 
 impl Grid{
     pub fn new(arr:[[bool; 8]; 8]) -> Grid{
-        let arr1 = arr.clone();
-        let arr2 = arr.clone();
         return Grid{
             display: arr.clone(),
             buffer: arr.clone()
@@ -19,9 +17,7 @@ impl Grid{
     }
 
     fn switch_grid(&mut self){
-        let temp = self.display;
-        self.display = self.buffer;
-        self.buffer = temp;
+        self.display = self.buffer.clone();
     }
 
     fn valid_cell(x:i32, y:i32) -> bool{
