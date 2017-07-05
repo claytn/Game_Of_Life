@@ -60,11 +60,11 @@ fn main() {
 			process::exit(1);
 	});
 	let mut readGrid = [[false; 8]; 8];
-	let mut requestedGrid = fileAsGrid(fileContents, &mut readGrid).unwrap_or_else(|err|{
+	fileAsGrid(fileContents, &mut readGrid).unwrap_or_else(|err|{
 			println!("Error parsing file into grid: {}", err);
 			process::exit(1);
 	});
-
+	
 	let mut game_board:Grid = Grid::new(readGrid.clone());
 	if args.len() < 2{
 		println!("Usage: cargo run <file> <# of iterations>");
@@ -76,7 +76,7 @@ fn main() {
 		process::exit(1);
 	});
 
-	for i in 0..iterations{
+	for _ in 0..iterations{
 		game_board.next();
 	}
 
