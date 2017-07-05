@@ -1,37 +1,27 @@
 /* Grid definition that holds both grids; one used as a buffer while other is updated */
 pub struct Grid{
-    currentBuffer: u8,
-    display: u8,
-    one: [[bool; 8]; 8],
-    two: [[bool; 8]; 8]
+    buffer: [[bool; 8]; 8],
+    display: [[bool; 8]; 8]
 }
 
 impl Grid{
     pub fn new(arr:[[bool; 8]; 8]) -> Grid{
-        return Grid{ currentBuffer: 2, display: 1,
-            one: arr.clone(),
-            two: arr.clone()
+        let arr1 = arr.clone();
+        let arr2 = arr.clone();
+        return Grid{
+            display: arr.clone(),
+            buffer: arr.clone()
         };
     }
 
     pub fn display(&self) -> &[[bool; 8]; 8]{
-        if self.display == 1{
-            return &self.one;
-        }
-        return &self.two;
+        &self.display
     }
 
     fn switch_grid(&mut self){
-        if self.currentBuffer == 1{
-            self.currentBuffer = 2;
-            self.display = 1;
-            self.two = self.one.clone();
-        }
-        else{
-            self.currentBuffer = 1;
-            self.display = 2;
-            self.one = self.two.clone();
-        }
+        let temp = self.display;
+        self.display = self.buffer;
+        self.buffer = temp;
     }
 
     fn valid_cell(x:i32, y:i32) -> bool{
@@ -56,10 +46,7 @@ impl Grid{
     }
 
     fn neighbors(&self, x:u32, y:u32) -> u8{
-        if self.display == 1{
-            return Grid::num_neighbors(&self.one, x, y);
-        }
-        return Grid::num_neighbors(&self.two, x, y);
+        return Grid::num_neighbors(&self.display, x, y);
     }
 
     pub fn next(&mut self){
@@ -69,21 +56,11 @@ impl Grid{
                 let neighbors = self.neighbors(i,j);
                 if neighbors >= 4 || neighbors <= 1{
                     /* kill cell */
-                    if self.currentBuffer == 1{
-                        self.one[i as usize][j as usize] = false;
-                    }
-                    else{
-                        self.two[i as usize][j as usize] = false;
-                    }
+                    self.buffer[i as usize][j as usize] = false;
                 }
                 else if neighbors == 3{
                     /* revive cell */
-                    if self.currentBuffer == 1{
-                        self.one[i as usize][j as usize] = true;
-                    }
-                    else{
-                        self.two[i as usize][j as usize] = true;
-                    }
+                    self.buffer[i as usize][j as usize] = true;
                 }
             }
         }
