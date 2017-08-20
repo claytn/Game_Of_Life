@@ -6,10 +6,10 @@ pub struct Grid{
 
 impl Grid{
     pub fn new(arr:[[bool; 8]; 8]) -> Grid{
-        return Grid{
+        Grid{
             display: arr.clone(),
             buffer: arr.clone()
-        };
+        }
     }
 
     pub fn display_grid(&self) -> &[[bool; 8]; 8] {
@@ -22,12 +22,12 @@ impl Grid{
 
     fn num_neighbors(&self, x:u32, y:u32) -> u8 {
         let mut count:u8 = 0;
-        let indexX:i32 = x as i32;
-        let indexY:i32 = y as i32;
+        let index_x:i32 = x as i32;
+        let index_y:i32 = y as i32;
         /* check each square touching current square */
-        for i in (indexX-1)...(indexX+1){
-            for j in (indexY-1)...(indexY+1){
-                if i != indexX || j != indexY{
+        for i in (index_x - 1)...(index_x + 1){
+            for j in (index_y - 1)...(index_y + 1){
+                if i != index_x || j != index_y{
                     if Grid::valid_cell(i, j) && self.display[i as usize][j as usize]{
                         count += 1;
                     }
