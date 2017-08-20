@@ -80,5 +80,5 @@ fn main() {
 		game_board.next();
 	}
 
-	println!("{}", gridToString(&game_board.display()));
+	println!("{}", gridToString(&game_board.display_grid()));
 }
