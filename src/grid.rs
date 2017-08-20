@@ -15,10 +15,7 @@ impl Grid{
     }
 
     pub fn display(&self) -> &[[bool; 8]; 8]{
-        if self.display == 1{
-            return &self.one;
-        }
-        return &self.two;
+        if self.display == 1{ &self.one } else { &self.two }
     }
 
     fn switch_grid(&mut self){
@@ -57,9 +54,11 @@ impl Grid{
 
     fn neighbors(&self, x:u32, y:u32) -> u8{
         if self.display == 1{
-            return Grid::num_neighbors(&self.one, x, y);
+            Grid::num_neighbors(&self.one, x, y)
         }
-        return Grid::num_neighbors(&self.two, x, y);
+        else{
+            Grid::num_neighbors(&self.two, x, y)
+        }
     }
 
     pub fn next(&mut self){

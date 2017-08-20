@@ -28,9 +28,6 @@ fn fileAsGrid(fileContents:String, myGrid:&mut [[bool; 8]; 8]) -> Result<(), Str
 }
 
 fn grabFileContents(args:&Vec<String>) -> Result<String, String>{
-	if args.len() < 2{
-		return Err(String::from("Not enough arguments\nUsage: cargo run <fileName>"));
-	}
 	let mut f = File::open(&args[1]).expect("Failed to open file provided.");
 	let mut fileContents = String::new();
 	f.read_to_string(&mut fileContents).expect("Failed reading file to string.");
@@ -55,28 +52,31 @@ fn gridToString(grid:&[[bool; 8]; 8]) -> String{
 
 fn main() {
 	let args:Vec<String> = env::args().collect();
-	let fileContents = grabFileContents(&args).unwrap_or_else(|err|{
-			println!("Problem with getting file contents: {}", err);
-			process::exit(1);
-	});
-	let mut readGrid = [[false; 8]; 8];
-	let mut requestedGrid = fileAsGrid(fileContents, &mut readGrid).unwrap_or_else(|err|{
-			println!("Error parsing file into grid: {}", err);
-			process::exit(1);
-	});
-
-	let mut game_board:Grid = Grid::new(readGrid.clone());
-	if args.len() < 2{
+	if args.len() < 3{
 		println!("Usage: cargo run <file> <# of iterations>");
 		process::exit(1);
 	}
 
-	let iterations = args[2].parse().unwrap_or_else(|err|{
+	let fileContents = grabFileContents(&args).unwrap_or_else(|err|{
+			println!("Problem with getting file contents: {}", err);
+			process::exit(1);
+	});
+
+	// write file contents into readGrid
+	let mut readGrid = [[false; 8]; 8];
+	fileAsGrid(fileContents, &mut readGrid).unwrap_or_else(|err|{
+			println!("Error parsing file into grid: {}", err);
+			process::exit(1);
+	});
+
+	let mut game_board:Grid = Grid::new(readGrid);
+
+	let iterations:u8 = args[2].parse().unwrap_or_else(|err|{
 		println!("Error parsing # of iterations: {}", err);
 		process::exit(1);
 	});
 
-	for i in 0..iterations{
+	for _ in 0..iterations{
 		game_board.next();
 	}
 
