@@ -7,6 +7,7 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::env;
 use std::process;
+use std::collections::{Vec, BitVec};
 
 fn file_as_grid(file_contents:String, grid:&mut [[bool; 8]; 8]) -> Result<(), String>{
 	/* transform file contents into an 8x8 bool array */
@@ -74,7 +75,7 @@ fn main() {
 		process::exit(1);
 	});
 
-	for _ in 0..iterations{
+	for _ in 0..iterations {
 		game_board.next();
 	}
 

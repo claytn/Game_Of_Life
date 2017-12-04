@@ -1,12 +1,12 @@
 /* Grid definition that holds both grids; one used as a buffer while other is updated */
 pub struct Grid{
-    display: [[bool; 8]; 8],
-    buffer: [[bool; 8]; 8]
+    display: Vec<BitVec>,
+    buffer: Vec<BitVec>
 }
 
 impl Grid{
-    pub fn new(arr:[[bool; 8]; 8]) -> Grid{
-        Grid{
+    pub fn new(arr:Vec<BitVec>) -> Grid{
+        Grid {
             display: arr.clone(),
             buffer: arr.clone()
         }
@@ -39,19 +39,29 @@ impl Grid{
 
     pub fn next(&mut self) {
         /* game of life logic */
+
+        // TODO: FINISH REVISED VERSION HERE.
+        self.buffer.iter().for_each(|bit_vec, i| {
+            bit_vec.iter().map(|map_entry, j| {
+                let neighbors = self.num_neighbors(i, j);
+                if neighbors >= 4 || neighbors <= 1 {
+                    /* kill cell */
+                    return false;
+                    //self.buffer[i as usize][j as usize] = false;
+                }
+                else if neighbors == 3 {
+                    /* revive cell */
+                    return true;
+                    //self.buffer[i as usize][j as usize] = true;
+                }
+            });
+        });
+        /*
         for i in 0..8{
             for j in 0..8{
-                let neighbors = self.num_neighbors(i,j);
-                if neighbors >= 4 || neighbors <= 1{
-                    /* kill cell */
-                    self.buffer[i as usize][j as usize] = false;
-                }
-                else if neighbors == 3{
-                    /* revive cell */
-                    self.buffer[i as usize][j as usize] = true;
-                }
+
             }
-        }
+        }*/
 
         /* update the display grid with updated buffer contents */
         self.display = self.buffer.clone();
